@@ -10,6 +10,7 @@ import Hidden from 'material-ui/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import Divider from 'material-ui/Divider';
 import Paper from "material-ui/Paper"
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import AddItem from './AddItem';
@@ -22,9 +23,30 @@ import {
     Route
     }   from 'react-router-dom';
 import FullTable from './FullTable';
+import Notification from './Notifications';
 
 const customHistory = createBrowserHistory();
-const drawerWidth = 300;
+const drawerWidth = 240;
+
+const theme2 = createMuiTheme({
+    overrides: {
+      MuiButton: {
+        // Name of the styleSheet
+        root: {
+          // Name of the rule
+          background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+          borderRadius: 3,
+          border: 0,
+          color: 'white',
+          height: 48,
+          padding: '0 30px',
+          boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .30)',
+          width:'100%',
+        },
+      },
+    },
+  });
+
 
 const styles = theme => ({
   root: {
@@ -59,6 +81,8 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
+    position:'relative',
+    height:'100%'
   },
 });
 
@@ -112,17 +136,23 @@ class ResponsiveDrawer extends React.Component {
         <div className={classes.toolbar} />
         <Divider />
         <Router history={customHistory}>
+        <Paper>
         <List>
         <Typography variant="title" color="inherit" noWrap>
-           <ListItem onClick={this.AddItemHandleClick.bind(this)}>Add Item</ListItem>
-            <ListItem onClick={this.FullTableHandleClick.bind(this)}>Search</ListItem>
+        <MuiThemeProvider theme={theme2}>
+           <ListItem><Button onClick={this.AddItemHandleClick.bind(this)} >Add Item</Button></ListItem>
+           <Divider />
+            <ListItem><Button onClick={this.FullTableHandleClick.bind(this)}>Search</Button></ListItem>
             <Divider/>
-            <ListItem onClick={this.AddEmployeeHandleClick.bind(this)}>Add Employee</ListItem>
-            <ListItem onClick={this.ViewEmployessHandleClick.bind(this)}>View Employees</ListItem>
+            <ListItem><Button onClick={this.AddEmployeeHandleClick.bind(this)} >Add Employee</Button></ListItem>
+            <Divider />
+            <ListItem><Button onClick={this.ViewEmployessHandleClick.bind(this)}>View Employees</Button></ListItem>
             <Divider/>
-            <ListItem>Queue Details</ListItem>
+            {/*<ListItem>Queue Details</ListItem>*/}
+            </MuiThemeProvider>
             </Typography>
         </List>
+        </Paper>
         </Router>
         
       </div>
@@ -175,7 +205,7 @@ class ResponsiveDrawer extends React.Component {
           <main className={classes.content}>
             <div className={classes.toolbar} />
             {this.state.OnDisplay}
-
+            <Notification/>
             {/*<Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>*/}
           </main>
         </div>

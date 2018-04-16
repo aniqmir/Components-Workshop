@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
+
 
 const styles = theme => ({
   container: {
@@ -53,6 +55,7 @@ class TextFields extends React.Component {
           className={classes.textField}
           margin="normal"
         />
+          
         <TextField
           id="price"
           label="Price"
@@ -68,6 +71,7 @@ class TextFields extends React.Component {
           className={classes.textField}
           margin="normal"
         />
+          
       </form>
     );
   }
